@@ -11,15 +11,15 @@ export async function writeTMSSync(tmsFile: string) {
 // mapping comes from en-US.json.
 // msgs comes from the extracting tsx/jsx files of src/**/*.ts*/js*
 
-let mapping: any = {};
+let mapping= {};
 try {
   mapping = require('./en-US.json');
 } catch (e) {
   mapping = {};
 }
 
-exports.format = function (msgs: any[]) {
-  const results: any = {};
+exports.format = function (msgs) {
+  const results = {};
   for (const [id, msg] of Object.entries(msgs)) {
     const { defaultMessage } = msg;
     if (mapping[id]) {
@@ -30,6 +30,5 @@ exports.format = function (msgs: any[]) {
   }
   return results;
 };
-    
-    `);
+`);
 }

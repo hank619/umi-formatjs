@@ -12,6 +12,7 @@ export async function initProject() {
   const firstWorkSpaceFolder = vscode.workspace.workspaceFolders?.[0];
   const rootPath = firstWorkSpaceFolder?.uri?.path;
   if (!rootPath) {
+    vscode.window.showErrorMessage('Invalid workspace');
     return;
   }
   // add @formatjs/cli to package.json
@@ -34,17 +35,17 @@ export async function initProject() {
     mkdirSync(localesFolder);
   } 
   // create TMS file
-  const tmsFile = path.join(localesFolder, 'TMS.ts');
+  const tmsFile = path.join(localesFolder, 'TMS.js');
   if (!existsSync(tmsFile)) {
     writeTMSSync(tmsFile);
   }
 
   // create en-US.ts ... 
   const countryFiles = [];
-  const enFile = path.join(localesFolder, 'en-US.ts');
-  const idFile = path.join(localesFolder, 'id-ID.ts');
-  const thFile = path.join(localesFolder, 'th-TH.ts');
-  const viFile = path.join(localesFolder, 'vi-VN.ts');
+  const enFile = path.join(localesFolder, 'en-US.json');
+  const idFile = path.join(localesFolder, 'id-ID.json');
+  const thFile = path.join(localesFolder, 'th-TH.json');
+  const viFile = path.join(localesFolder, 'vi-VN.json');
   countryFiles.push(enFile, idFile, thFile, viFile);
   countryFiles.map(itemFile => {
     if (!existsSync(itemFile)) {
@@ -55,10 +56,9 @@ export async function initProject() {
   // run `yarn install`
   const activeTerminal = vscode.window.activeTerminal;
   if (activeTerminal) {
-    activeTerminal.sendText('yarn install\n');
+    activeTerminal.sendText(`yarn install\n`);
   } else {
     const newTermianl = vscode.window.createTerminal();
-    newTermianl.sendText('yarn install\n');
-    vscode.window.showErrorMessage('no valid terminal');
+    newTermianl.sendText(`yarn install\n`);
   }
 }
