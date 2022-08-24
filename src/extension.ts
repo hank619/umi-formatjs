@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { chooseOperation } from './chooseOperation';
-import { extractI18n } from './extractI18n';
-import { initProject } from './initProject';
+import { chooseOperation } from './commands/chooseOperation';
+import { extractI18n } from './commands/extractI18n';
+import { initProject } from './commands/initProject';
 
 export function activate(context: vscode.ExtensionContext) {
 	

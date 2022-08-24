@@ -4,7 +4,7 @@
  * @Description: 
  */
 import { window } from "vscode";
-import { OPERATIONS } from "./operation";
+import { OPERATIONS } from "../constants/operation";
 import * as vscode from 'vscode';
 
 export async function chooseOperation() {

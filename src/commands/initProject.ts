@@ -6,7 +6,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { writeTMSSync } from './utils';
+import { writeTMSSync } from '../untils';
 
 export async function initProject() {
   const firstWorkSpaceFolder = vscode.workspace.workspaceFolders?.[0];
