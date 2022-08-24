@@ -18,7 +18,8 @@
     "commands": [
       {
         "command": "umi-formatjs.chooseOperation",
-        "title": "Choose Operation"
+        "title": "Choose Operation",
+        "icon": "./images/icon.png"
       },
       {
         "command": "umi-formatjs.initProject",
@@ -33,7 +34,7 @@
       "editor/title": [
         {
           "command": "umi-formatjs.chooseOperation",
-          "group": "navigation"
+          "group": "navigation"          
         }
       ]
     }
