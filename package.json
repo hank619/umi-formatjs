@@ -2,7 +2,7 @@
   "name": "umi-formatjs",
   "displayName": "umi-formatjs",
   "description": "extension for umi to extract i18n files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -14,6 +14,7 @@
     "onStartupFinished"
   ],
   "publisher": "matrixyf",
+  "icon": "images/icon.png",
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
