@@ -13,7 +13,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-
+  "publisher": "matrixyf",
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
