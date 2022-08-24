@@ -10,16 +10,34 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:umi-formatjs.helloWorld"
+    "onStartupFinished"
   ],
+
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "umi-formatjs.helloWorld",
-        "title": "Hello World"
+        "command": "umi-formatjs.chooseOperation",
+        "title": "Choose Operation",
+        "icon": "./images/icon.png"
+      },
+      {
+        "command": "umi-formatjs.initProject",
+        "title": "Init Project"
+      },
+      {
+        "command": "umi-formatjs.extractI18n",
+        "title": "Extract I18n"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "umi-formatjs.chooseOperation",
+          "group": "navigation"          
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
