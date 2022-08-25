@@ -5,7 +5,7 @@ import { initProject } from './commands/initProject';
 
 export function activate(context: vscode.ExtensionContext) {
 	
-  vscode.window.showInformationMessage("umi-formatjs init complete");
+  console.log("umi-formatjs init complete");
 
 	let chooseDisposable = vscode.commands.registerCommand('umi-formatjs.chooseOperation', async () => {
     await chooseOperation();

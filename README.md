@@ -17,7 +17,7 @@ A VSCode exetension for umi project that easily extract i18n materials with just
 > Extract materials from the source code.   
 > It runs `npx formatjs extracat` for all 4 locales.
 
-![demo](images/demo.gif)
+![demo](https://raw.githubusercontent.com/matrixyf/pictureRepo/main/demo.gif)
 
 ## Requirements
 
