@@ -32,3 +32,12 @@ exports.format = function (msgs) {
 };
 `);
 }
+
+export function stringFormat(template: string, ...args: any[]) {
+  return template.replace(/{(\d+)}/g, function (match, number) {
+      return typeof args[number] !== 'undefined'
+          ? args[number]
+          : match
+          ;
+  });
+};
