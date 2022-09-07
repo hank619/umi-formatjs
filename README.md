@@ -7,9 +7,9 @@ A VSCode exetension for umi project that easily extract i18n materials with just
 ### Init project
 > Init with basic files needed for formatjs to extract materials.   
 > It mainly do 5 things   
-1. create folder `locales`
-2. create locales json files `en-US.json`, `id-ID.json`, `th-TH.json` and `vi-VN.json`
-3. create formater file TMS.js for formatjs
+1. create folder `/locales`
+2. create folders for each country, `/en-US`, `/id-ID`, `/th-TH` and `/vi-VN`
+3. create formater file `TMS.js` and `index.json` file for each country
 4. add '@formatjs/cli' to package.json
 5. run `yarn install`
 
