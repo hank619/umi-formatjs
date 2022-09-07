@@ -6,7 +6,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { COUNTRIES } from '../constants/country';
 import { writeTMSSync, writeTsExportSync } from '../untils';
 
 export async function initProject() {
@@ -16,6 +15,10 @@ export async function initProject() {
     vscode.window.showErrorMessage('Invalid workspace');
     return;
   }
+  const configuration = vscode.workspace.getConfiguration('umi-formatjs');
+  const countriesConfig = configuration.get<string>('countries') || '';
+  const countries = countriesConfig.split(',');
+
   // add @formatjs/cli to package.json
   const packageJsonFile = path.join(rootPath, 'package.json');
   if (!existsSync(packageJsonFile)) {
@@ -31,7 +34,7 @@ export async function initProject() {
   
   // mkdir folders for diffrent countries
   const localesFolder = path.join(rootPath, '/src', '/locales');
-  const countryFolders = COUNTRIES.map(country =>  path.join(localesFolder, country));
+  const countryFolders = countries.map(country =>  path.join(localesFolder, country));
   countryFolders.forEach(folder => {
     if (!existsSync(folder)) {
       mkdirSync(folder, { recursive: true});
@@ -51,7 +54,7 @@ export async function initProject() {
   });
 
   // create ts file to export the index.json out
-  COUNTRIES.forEach(country => {
+  countries.forEach(country => {
     const tsExportFile = path.join(localesFolder, `${country}.ts`);
     if (!existsSync(tsExportFile)) {
       writeTsExportSync(tsExportFile, country);
