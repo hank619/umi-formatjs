@@ -2,7 +2,7 @@
   "name": "umi-formatjs",
   "displayName": "umi-formatjs",
   "description": "extension for umi to extract i18n files",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -50,7 +50,7 @@
         },
         "umi-formatjs.countries": {
           "type": "string",
-          "default": "en-us,id-ID,th-TH,vi-VN",
+          "default": "en-US,id-ID,th-TH,vi-VN",
           "markdownDescription": "The countries that want formatjs to support, defaut value is `en-US,id-ID,th-TH,vi-VN`. If you want to specific more countries, concat them with `,`."
         }
       }
