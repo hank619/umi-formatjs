@@ -6,7 +6,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { writeTMSSync } from '../untils';
+import { writeTMSSync, writeTsExportSync } from '../untils';
 
 export async function initProject() {
   const firstWorkSpaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -15,6 +15,10 @@ export async function initProject() {
     vscode.window.showErrorMessage('Invalid workspace');
     return;
   }
+  const configuration = vscode.workspace.getConfiguration('umi-formatjs');
+  const countriesConfig = configuration.get<string>('countries') || '';
+  const countries = countriesConfig.split(',');
+
   // add @formatjs/cli to package.json
   const packageJsonFile = path.join(rootPath, 'package.json');
   if (!existsSync(packageJsonFile)) {
@@ -27,29 +31,33 @@ export async function initProject() {
     const newData = JSON.stringify(json, null, "\t");
     writeFileSync(packageJsonFile, newData);
   }
-
-  // mkdir locales
+  
+  // mkdir folders for diffrent countries
   const localesFolder = path.join(rootPath, '/src', '/locales');
+  const countryFolders = countries.map(country =>  path.join(localesFolder, country));
+  countryFolders.forEach(folder => {
+    if (!existsSync(folder)) {
+      mkdirSync(folder, { recursive: true});
+    }
+  });
 
-  if (!existsSync(localesFolder)) {
-    mkdirSync(localesFolder);
-  } 
-  // create TMS file
-  const tmsFile = path.join(localesFolder, 'TMS.js');
-  if (!existsSync(tmsFile)) {
-    writeTMSSync(tmsFile);
-  }
+  // create index.json and TMS file for each country
+  countryFolders.forEach(folder => {
+    const countryFile = path.join(folder, 'index.json');
+    if (!existsSync(countryFile)) {
+      writeFileSync(countryFile, '{}');
+    }
+    const tmsFile = path.join(folder, 'TMS.js');
+    if (!existsSync(tmsFile)) {
+      writeTMSSync(tmsFile);
+    }
+  });
 
-  // create en-US.ts ... 
-  const countryFiles = [];
-  const enFile = path.join(localesFolder, 'en-US.json');
-  const idFile = path.join(localesFolder, 'id-ID.json');
-  const thFile = path.join(localesFolder, 'th-TH.json');
-  const viFile = path.join(localesFolder, 'vi-VN.json');
-  countryFiles.push(enFile, idFile, thFile, viFile);
-  countryFiles.map(itemFile => {
-    if (!existsSync(itemFile)) {
-      writeFileSync(itemFile, '{}');
+  // create ts file to export the index.json out
+  countries.forEach(country => {
+    const tsExportFile = path.join(localesFolder, `${country}.ts`);
+    if (!existsSync(tsExportFile)) {
+      writeTsExportSync(tsExportFile, country);
     }
   });
 

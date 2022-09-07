@@ -17,19 +17,21 @@ export function extractI18n() {
 
   // run `formatjs extract `
   const configuration = vscode.workspace.getConfiguration('umi-formatjs');
-  const includeFolers = configuration.get('includeFolders');
+  const includeFolersConfig = configuration.get<string>('includeFolders') || '';
+  const includeFolders = includeFolersConfig.split(',');
+  const includeFolderString = includeFolders.join('||');
+  const countriesConfig = configuration.get<string>('countries') || '';
+  const countries = countriesConfig.split(',');
 
   const activeTerminal = vscode.window.activeTerminal;
   if (activeTerminal) {
-    activeTerminal.sendText(stringFormat(SENATENCE.EXTRACT_EN, includeFolers));
-    activeTerminal.sendText(stringFormat(SENATENCE.EXTRACT_ID, includeFolers));
-    activeTerminal.sendText(stringFormat(SENATENCE.EXTRACT_TH, includeFolers));
-    activeTerminal.sendText(stringFormat(SENATENCE.EXTRACT_VI, includeFolers));
+    countries.forEach(country => {
+      activeTerminal.sendText(stringFormat(SENATENCE.EXTRACT, includeFolderString, country));
+    });
   } else {
     const newTermianl = vscode.window.createTerminal();
-    newTermianl.sendText(stringFormat(SENATENCE.EXTRACT_EN, includeFolers));
-    newTermianl.sendText(stringFormat(SENATENCE.EXTRACT_ID, includeFolers));
-    newTermianl.sendText(stringFormat(SENATENCE.EXTRACT_TH, includeFolers));
-    newTermianl.sendText(stringFormat(SENATENCE.EXTRACT_VI, includeFolers));
+    countries.forEach(country => {
+      newTermianl.sendText(stringFormat(SENATENCE.EXTRACT, includeFolderString, country));
+    });
   }
 }
